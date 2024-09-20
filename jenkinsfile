@@ -3,23 +3,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // This step pulls the code from the SCM (like GitHub) repository
-                checkout scm
+                // Manually checkout the repository using Git
+                git branch: 'relese/jenkins-development', url: 'https://github.com/kandage/Calculate_Me_Front_End.git'
             }
         }
         stage('Build') {
             steps {
-                // List files to verify the package.json exists
+                // List files and install npm packages
                 sh 'ls'
-
-                // Install npm packages
                 sh 'npm install'
 
                 // Disable Angular analytics and build the project
                 sh 'echo N | ng analytics off'
                 sh 'ng build --prod'
 
-                // Check the build output directory
+                // Check build output directory
                 sh 'ls dist'
                 sh 'ls dist/angular-tour-of-heroes'
                 sh 'ls dist/angular-tour-of-heroes/browser'
