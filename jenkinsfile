@@ -1,17 +1,25 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+            steps {
+                // This step pulls the code from the SCM (like GitHub) repository
+                checkout scm
+            }
+        }
         stage('Build') {
             steps {
-                // List files and install npm packages
+                // List files to verify the package.json exists
                 sh 'ls'
+
+                // Install npm packages
                 sh 'npm install'
 
                 // Disable Angular analytics and build the project
                 sh 'echo N | ng analytics off'
                 sh 'ng build --prod'
 
-                // Check build output directory
+                // Check the build output directory
                 sh 'ls dist'
                 sh 'ls dist/angular-tour-of-heroes'
                 sh 'ls dist/angular-tour-of-heroes/browser'
