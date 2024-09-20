@@ -3,19 +3,27 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                // List files and install npm packages
                 sh 'ls'
                 sh 'npm install'
+
+                // Disable Angular analytics and build the project
                 sh 'echo N | ng analytics off'
-                sh 'ng build'
-                sh 'ls'
-                sh 'cd dist && ls'
-                sh 'cd dist/angular-tour-of-heroes/browser && ls'
+                sh 'ng build --prod'
+
+                // Check build output directory
+                sh 'ls dist'
+                sh 'ls dist/angular-tour-of-heroes'
+                sh 'ls dist/angular-tour-of-heroes/browser'
             }
         }
         stage('S3 Upload') {
             steps {
                 withAWS(region: 'us-east-1', credentials: '000ededf-d6bd-48e0-afc5-889dd549c268') {
-                    sh 'ls -la'
+                    // Check the contents before uploading
+                    sh 'ls -la dist/angular-tour-of-heroes/browser'
+
+                    // Upload the built project to S3
                     sh 'aws s3 cp dist/angular-tour-of-heroes/browser/. s3://concal-jenkins-angular/ --recursive'
                 }
             }
