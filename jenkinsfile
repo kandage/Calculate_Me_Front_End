@@ -5,6 +5,7 @@ pipeline {
             steps {
 
                 git branch: 'release/jenkins-development', url: 'https://github.com/kandage/Calculate_Me_Front_End.git'
+                credentialsId: 'github-credentials'
             }
         }
         stage('Build') {
