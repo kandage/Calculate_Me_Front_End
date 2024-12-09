@@ -1,0 +1,230 @@
+<div class="staircase-calculator-outer">
+  <h1 class="main-title">Staircase Calculator</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Step Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Ricer (ft)</mat-label>
+                <input formControlName="ricer" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.controls['ricer'].hasError('min')">Value must be greater than 0.</mat-error>
+                <mat-error *ngIf="form.controls['ricer'].hasError('required')">Ricer is required.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label> Tread (ft)</mat-label>
+                <input formControlName="tread" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.controls['tread'].hasError('min')">Value must be greater than 0.</mat-error>
+                <mat-error *ngIf="form.controls['tread'].hasError('required')">Tread is required.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <h2 class="category-title">Stair Details</h2>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Stair Width (ft)</mat-label>
+                <input formControlName="stairWidth" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.controls['stairWidth'].hasError('min')">Value must be greater than 0.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Stair Height (ft)</mat-label>
+                <input formControlName="stairHeight" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.controls['stairHeight'].hasError('min')">Value must be greater than 0.</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <h2 class="category-title">Other Details</h2>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Slab Thickness (ft)</mat-label>
+                <input formControlName="slabThickness" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.controls['slabThickness'].hasError('min')">Value must be greater than 0.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Grade</mat-label>
+                <mat-select formControlName="grade">
+                  <mat-option [value]="'M10'">M10</mat-option>
+                  <mat-option [value]="'M15'">M15</mat-option>
+                  <mat-option [value]="'M20'">M20</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button" mat-raised-button>
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Ricer</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.ricer }} ft</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Tread</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.tread }} ft</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Stair Width</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.stairWidth }} ft</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Stair Height</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.stairHeight }} ft</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Slab Thickness</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.slabThickness }} ft</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Grade</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.grade }} m</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Total Volume of Stair</span>
+              <span class="colon">:</span>
+              <span class="value">{{ totalVolumeOfStairs }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Cement bags</span>
+              <span class="colon">:</span>
+              <span class="value">{{ cementBags }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Sand (Tons)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ sandInTons }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Aggregate (Tons)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ aggregateInTons }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Riser</td>
+            <td>Tread</td>
+            <td>Stair Width</td>
+            <td>Stair Height</td>
+            <td>Slab Thickness</td>
+            <td>Grade</td>
+            <td>Total Volume of Stair</td>
+            <td>Cement Bags</td>
+            <td>Sand in Tons</td>
+            <td>Aggregate in Tons</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.riser }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.tread }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.stairWidth }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.stairHeight }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.slabThickness }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.grade }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.totalVolumeOfStair }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.cementBags }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.sandInTons }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.aggregateInTons }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator (page)="pageEvent = getServerData($event)"
+                   [length]=dataCount
+                   [pageIndex]=page
+                   [pageSizeOptions]=pageSizeOptions
+                   [pageSize]=pageSize
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

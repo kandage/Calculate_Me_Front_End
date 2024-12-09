@@ -1,0 +1,191 @@
+<div class="staircase-calculator-outer">
+  <h1 class="main-title">Concrete Strength Calculator</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Step Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Cement Quantity (Kg)</mat-label>
+                <input formControlName="cement" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('cement')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Fly Ash (Kg)</mat-label>
+                <input formControlName="ash" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('ash')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Blast Furnace Slag (Kg)</mat-label>
+                <input formControlName="slag" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('slag')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Water Quantity (L)</mat-label>
+                <input formControlName="water" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('water')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Super Plasticizer (L)</mat-label>
+                <input formControlName="superplasticizer" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('superplasticizer')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Coarse Aggregate (Kg)</mat-label>
+                <input formControlName="coarseAggregate" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('coarseAggregate')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Fine Aggregate (Sand) (Kg)</mat-label>
+                <input formControlName="fineAggregate" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('fineAggregate')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Age of Concrete (Days)</mat-label>
+                <input formControlName="age" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('age')?.hasError('min')">
+                  Age must be at least 1 day.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button" mat-raised-button>
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Cement</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.cement }} kg</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Fly Ash</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.ash }} kg</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Blast Furnace Slag</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.slag }} Kg</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Water</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.water }} L</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Superplasticizer</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.superplasticizer }} L</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Coarse Aggregate</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.coarseAggregate }} kg</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Fine Aggregate</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.fineAggregate }} kg</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Age of Concrete</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.age }} days</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Total Volume of Concrete</span>
+              <span class="colon">:</span>
+              <span class="value">{{ totalVolumeOfConcrete }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Cement</td>
+            <td>Fly Ash</td>
+            <td>Water</td>
+            <td>Superplasticizer</td>
+            <td>Coarse Aggregate</td>
+            <td>Fine Aggregate</td>
+            <td>Age of Concrete</td>
+            <td>Total Volume</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td>{{ h.cement }}</td>
+            <td>{{ h.ash }}</td>
+            <td>{{ h.water }}</td>
+            <td>{{ h.superplasticizer }}</td>
+            <td>{{ h.coarse_aggregate }}</td>
+            <td>{{ h.fine_aggregate }}</td>
+            <td>{{ h.age }}</td>
+            <td>{{ h.prediction_result }}</td> <!-- or h.totalVolumeOfConcrete if that's the correct field -->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

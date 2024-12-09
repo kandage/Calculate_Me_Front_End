@@ -1,0 +1,133 @@
+<div class="wood-frame-outer">
+  <h1 class="main-title">Wood Frame Calculation</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Wood frame detail</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Length (meter)</mat-label>
+                <input formControlName="length" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('length')?.hasError('min')">
+                  Value must be greater than 0!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Width (meter)</mat-label>
+                <input formControlName="width" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('width')?.hasError('min')">
+                  Value must be greater than 0!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Thickness (meter)</mat-label>
+                <input formControlName="thickness" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('thickness')?.hasError('min')">
+                  Value must be greater than 0!
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button" mat-raised-button>
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Length</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.length }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Width</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.width }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Thickness</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.thickness }} m</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Volume</span>
+              <span class="colon">:</span>
+              <span class="value">{{ volume }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Length</td>
+            <td>Width</td>
+            <td>Thickness</td>
+            <td>Volume</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.length }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.width }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.thickness }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.volume }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator (page)="pageEvent = getServerData($event)"
+                   [length]=dataCount
+                   [pageIndex]=page
+                   [pageSizeOptions]=pageSizeOptions
+                   [pageSize]=pageSize
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

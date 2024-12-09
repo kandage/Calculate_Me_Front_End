@@ -1,0 +1,156 @@
+<div class="solar-panel-calculator-outer">
+  <h1 class="main-title">Solar Panel Calculator</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form" novalidate>
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Panel Details</h2>
+            </div>
+
+            <!-- Units Field -->
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Units (meter)</mat-label>
+                <input formControlName="units" matInput type="number" [min]="1">
+                <mat-error *ngIf="form.get('units')?.hasError('required')">Units are required</mat-error>
+                <mat-error *ngIf="form.get('units')?.hasError('min')">Units must be greater than 0</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Consumption Type Field -->
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Consumption Type</mat-label>
+                <mat-select formControlName="consumptionType">
+                  <mat-option [value]="'Monthly'">Monthly</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('consumptionType')?.hasError('required')">
+                  Consumption type is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Calculate Button -->
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button"
+                        mat-raised-button [disabled]="form.invalid">
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Results Section -->
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Units</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.units }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Consumption Type</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.consumptionType }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Daily Consumption</span>
+              <span class="colon">:</span>
+              <span class="value">{{ dailyConsumption }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Rooftop Capacity</span>
+              <span class="colon">:</span>
+              <span class="value">{{ rooftopCapacity }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Panel Count</span>
+              <span class="colon">:</span>
+              <span class="value">{{ panelCount }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Area Required</span>
+              <span class="colon">:</span>
+              <span class="value">{{ areaRequired }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <!-- History Section -->
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Units</td>
+            <td>Consumption Type</td>
+            <td>Daily Consumption</td>
+            <td>Rooftop Capacity</td>
+            <td>Panel Count</td>
+            <td>Area Required</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.units }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.consumptionType }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.dailyConsumption }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.rooftopCapacity }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.panelCount }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.areaRequired }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator (page)="pageEvent = getServerData($event)"
+                   [length]="dataCount"
+                   [pageIndex]="page"
+                   [pageSizeOptions]="pageSizeOptions"
+                   [pageSize]="pageSize"
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

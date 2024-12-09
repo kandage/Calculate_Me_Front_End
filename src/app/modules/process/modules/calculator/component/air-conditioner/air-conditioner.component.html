@@ -1,0 +1,161 @@
+<div class="air-conditioner-outer">
+  <h1 class="main-title">Air-conditioner Power</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Room Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Length (ft)</mat-label>
+                <input formControlName="length" matInput type="number" min="1">
+                <mat-error *ngIf="form.get('length')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+                <mat-error *ngIf="form.get('length')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Breadth (ft)</mat-label>
+                <input formControlName="breadth" matInput type="number" min="1">
+                <mat-error *ngIf="form.get('breadth')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+                <mat-error *ngIf="form.get('breadth')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Height (ft)</mat-label>
+                <input formControlName="height" matInput type="number" min="1">
+                <mat-error *ngIf="form.get('height')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+                <mat-error *ngIf="form.get('height')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <h2 class="category-title">Other Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Person Count</mat-label>
+                <input formControlName="personCount" matInput type="number" min="1">
+                <mat-error *ngIf="form.get('personCount')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+                <mat-error *ngIf="form.get('personCount')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Max Temperature (Celsius)</mat-label>
+                <input formControlName="maxTemperature" matInput type="number" min="1">
+                <mat-error *ngIf="form.get('maxTemperature')?.hasError('min')">
+                  Value must be greater than 0.
+                </mat-error>
+                <mat-error *ngIf="form.get('maxTemperature')?.hasError('required')">
+                  This field is required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button" mat-raised-button>
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Length (ft)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.length }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Breadth (ft)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.breadth }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Height (ft)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.height }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Person Count</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.personCount }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Max Temperature</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.maxTemperature }} °C</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result</span>
+              <span class="colon">:</span>
+              <span class="value">{{ result }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+    <div class="list-outer">
+      <table class="table">
+        <thead>
+        <tr>
+          <td>Length</td>
+          <td>Breadth</td>
+          <td>Height</td>
+          <td>Person Count</td>
+          <td>Max Temperature</td>
+          <td>AC Size</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let h of history">
+          <td>{{ h?.length }}</td>
+          <td>{{ h?.breadth }}</td>
+          <td>{{ h?.height }}</td>
+          <td>{{ h?.personCount }}</td>
+          <td>{{ h?.maxTemperature }}</td>
+          <td>{{ h?.acSize }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <mat-paginator (page)="getServerData($event)"
+                   [length]="dataCount"
+                   [pageIndex]="page"
+                   [pageSizeOptions]="pageSizeOptions"
+                   [pageSize]="pageSize"
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

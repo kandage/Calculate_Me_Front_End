@@ -1,0 +1,133 @@
+<div class="anti-termite-calculator-outer">
+  <h1 class="main-title">Anti-Termite Calculator</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Area Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Length (ft)</mat-label>
+                <input
+                  formControlName="length"
+                  matInput
+                  type="number"
+                  min="1"
+                  placeholder="Enter length" />
+                <mat-error *ngIf="form.get('length')?.hasError('required')">
+                  Length is required.
+                </mat-error>
+                <mat-error *ngIf="form.get('length')?.hasError('min')">
+                  Length must be greater than zero.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Width (ft)</mat-label>
+                <input
+                  formControlName="width"
+                  matInput
+                  type="number"
+                  min="1"
+                  placeholder="Enter width" />
+                <mat-error *ngIf="form.get('width')?.hasError('required')">
+                  Width is required.
+                </mat-error>
+                <mat-error *ngIf="form.get('width')?.hasError('min')">
+                  Width must be greater than zero.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button
+                  (click)="calculate(f)"
+                  class="submit-button"
+                  mat-raised-button
+                  color="primary">
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Length (ft)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.length }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Width (ft)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.width }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result</span>
+              <span class="colon">:</span>
+              <span class="value">{{ result }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Length (ft)</td>
+            <td>Width (ft)</td>
+            <td>Quantity</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.length }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.width }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.quantity }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator
+      (page)="getServerData($event)"
+      [length]="dataCount"
+      [pageIndex]="page"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageSize]="pageSize"
+      aria-label="Select page">
+    </mat-paginator>
+
+  </div>
+</div>

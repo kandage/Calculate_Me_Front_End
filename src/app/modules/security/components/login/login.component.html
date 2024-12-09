@@ -1,0 +1,66 @@
+<div class="outer">
+
+  <div class="data-context">
+
+    <div class="logo-wrapper" style="display: none; justify-content: center;">
+      <img src="../../../../../assets/logo.png" alt="">
+    </div>
+
+    <h4 class="header-text">
+      Login
+    </h4>
+
+    <form (ngSubmit)="login()" [formGroup]="loginForm" class="example-form">
+      <div class="row form-outer">
+        <div class="col-12 email">
+          <div class="form-group">
+            <label for="name">Email *</label>
+            <input type="email" formControlName="email" class="form-control" id="name" aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col-12 password">
+          <div class="form-group">
+            <label for="email">Password *</label>
+            <input type="password" formControlName="password" class="form-control" id="email" aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col-12 forgot-password">
+          <p (click)="forgotPassword()">Forgot Password?</p>
+        </div>
+        <div class="col-12 sign-in">
+          <button class="sign-in-button" mat-raised-button [disabled]="loginForm.invalid">Sign In</button>
+        </div>
+        <div class="col-12 note">
+          <span>By logging in, you're agreeing to accept all our <span routerLink="/terms/accessibility" class="terms-text">
+            terms & conditions</span>. Let's create connections and make moments together.</span>
+        </div>
+        <p class="or">OR</p>
+
+        <div class="col-12 sign-in">
+          <button routerLink="/security/signup" class="sign-up-button" mat-raised-button>Register Now</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="left">
+
+    <div class="logo-wrapper">
+      <img src="assets/logo/concal-logo.png" alt="">
+    </div>
+    <div class="data-desc-outer">
+      <h1>"Strengthening Structures,<br> Building Futures"</h1>
+    </div>
+
+  </div>
+  <div class="right">
+    <div class="round-1">
+      <div class="dot-1"></div>
+    </div>
+    <div class="round-2">
+      <div class="dot-2"></div>
+    </div>
+    <div class="round-3"></div>
+  </div>
+</div>

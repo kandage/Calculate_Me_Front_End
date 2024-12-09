@@ -1,0 +1,92 @@
+<div class="outer">
+
+  <div class="data-context">
+
+    <div class="logo-wrapper" style="display: none; justify-content: center;">
+      <img src="../../../../../assets/logo.png" alt="">
+    </div>
+
+    <h4 class="header-text">
+      Register
+    </h4>
+
+    <form (ngSubmit)="signup()" [formGroup]="signupForm" class="example-form">
+      <div class="row form-outer">
+        <div class="col-12 name">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="emailHelp">
+          </div>
+
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+          </div>
+
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="mobile">Mobile *</label>
+            <input formControlName="mobile" type="text" class="form-control" id="mobile" aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="password">Password *</label>
+            <input (keyup)="trigger()" style="margin-bottom: 10px;" formControlName="password"
+                   type="{{passwordState ? 'text' : 'password'}}" class="form-control" id="password"
+                   aria-describedby="emailHelp">
+            <mat-progress-bar
+              *ngIf="value"
+              [color]="color"
+              [mode]="mode"
+              [value]="value">
+            </mat-progress-bar>
+          </div>
+          <br>
+        </div>
+
+        <section class="example-section">
+          <mat-checkbox class="example-margin" (click)="passwordState=!passwordState">Show Password</mat-checkbox>
+        </section>
+        <div class="col-12 sign-in">
+          <br>
+          <button class="sign-in-button" mat-raised-button>Sign Up</button>
+        </div>
+
+        <p class="or">OR</p>
+
+        <div class="col-12 sign-in">
+          <button routerLink="/security/login" class="sign-up-button" mat-raised-button>Already have an Account</button>
+        </div>
+
+      </div>
+    </form>
+
+
+  </div>
+
+  <div class="left">
+
+    <div class="logo-wrapper">
+      <img src="assets/logo/concal-logo.png" alt="">
+    </div>
+    <div class="data-desc-outer">
+      <h1>"Strengthening Structures,<br> Building Futures"</h1></div>
+
+  </div>
+  <div class="right">
+    <div class="round-1">
+      <div class="dot-1"></div>
+    </div>
+    <div class="round-2">
+      <div class="dot-2"></div>
+    </div>
+    <div class="round-3"></div>
+  </div>
+</div>
+
+
+

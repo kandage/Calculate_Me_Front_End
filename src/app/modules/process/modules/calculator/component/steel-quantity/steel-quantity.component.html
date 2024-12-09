@@ -1,0 +1,116 @@
+<div class="steel-quantity-outer">
+  <h1 class="main-title">Steel Quantity</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Area Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Member Type</mat-label>
+                <mat-select formControlName="memberType">
+                  <mat-option [value]="'Footing'">Footing</mat-option>
+                  <mat-option [value]="'Beam'">Beam</mat-option>
+                  <mat-option [value]="'Slab'">Slab</mat-option>
+                  <mat-option [value]="'Column'">Column</mat-option>
+                  <mat-option [value]="'StairCase'">StairCase</mat-option>
+                  <mat-option [value]="'Lintle/Coping'">Lintle/Coping</mat-option>
+                  <mat-option [value]="'Retaining Wall'">Retaining Wall</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Concrete Quantity</mat-label>
+                <input formControlName="concreteQuantity" matInput type="number" [min]="1" required>
+                <mat-error *ngIf="form.get('concreteQuantity')?.hasError('min')">Value must be greater than 0</mat-error>
+                <mat-error *ngIf="form.get('concreteQuantity')?.hasError('required')">This field is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)" class="submit-button" mat-raised-button [disabled]="form.invalid">
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Member Type</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.memberType }}</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Concrete Quantity</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.concreteQuantity }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Steel Weight (Tons)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ steelWeight }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Member Type</td>
+            <td>Concrete Quantity</td>
+            <td>Steel Weight</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.memberType }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.concreteQuantity }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.steelWeight }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator (page)="pageEvent = getServerData($event)"
+                   [length]=dataCount
+                   [pageIndex]=page
+                   [pageSizeOptions]=pageSizeOptions
+                   [pageSize]=pageSize
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

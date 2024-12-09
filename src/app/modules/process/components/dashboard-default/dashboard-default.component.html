@@ -1,0 +1,44 @@
+<div class="main-outer">
+  <div class="top-outer">
+   <div>
+     <h1 class="title">Dashboard</h1>
+
+   </div>
+
+    <div class="user-name">
+      <div class="greeting">
+        <span>{{ greeting }}, {{ currentUserName }}</span>
+      </div>
+    </div>
+
+    <!-- Right: Icons -->
+    <div class="top-bar-icon-outer">
+      <div class="top-bar-icon-inner">
+        <mat-icon>notifications</mat-icon>
+      </div>
+      <div class="top-bar-icon-inner">
+        <mat-icon (click)="logout()">logout</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="greeting-container">
+      <div class="time">{{ currentTime }}</div>
+      <div class="date">{{ currentDate }}</div>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="card-container">
+      <div *ngFor="let card of cards" class="card" [ngStyle]="{'background-color': card.backgroundColor}">
+        <div class="icon" [ngStyle]="{'color': card.iconColor}">
+          <mat-icon>{{ card.icon }}</mat-icon>
+        </div>
+        <div class="text">
+          <p>{{ card.name }}</p>
+          <h1>{{ card.count }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

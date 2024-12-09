@@ -1,0 +1,44 @@
+<div class="outer">
+
+  <img *ngIf="!expanded" alt="logo" class="logo" src="/assets/logo/concal-logo.png">
+
+  <div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [ngStyle]="{'width':expanded?'280px':'70px'}"
+       class="left"
+       id="left">
+    <div class="nav-outer">
+      <div class="nav-inner">
+        <div class="ham-outer">
+          <div (click)="triggerNav()" class="ham-inner">
+            <mat-icon>menu</mat-icon>
+          </div>
+          <div *ngIf="expanded" class="logo-outer">
+            <img class="logo-expanded" alt="logo" src="/assets/logo/concal-logo.png">
+          </div>
+        </div>
+
+        <ul [ngStyle]="{'display':expanded?'block':''}" class="menu-wrapper">
+          <li class="list-inner" *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active">
+            <div class="icon-outer">
+              <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+            </div>
+            <div *ngIf="expanded" class="nav-context">
+              {{ item.label }}
+            </div>
+          </li>
+          <li class="list-inner" (click)="logout()">
+            <div class="icon-outer">
+              <mat-icon class="nav-icon">logout</mat-icon>
+            </div>
+            <div *ngIf="expanded" class="nav-context">
+              Logout
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <app-dashboard-body></app-dashboard-body>
+  </div>
+</div>
+

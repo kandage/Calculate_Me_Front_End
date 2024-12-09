@@ -1,0 +1,169 @@
+<div class="flooring-calculator-outer">
+  <h1 class="main-title">Flooring Calculator</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Floor Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Floor Length (meter)</mat-label>
+                <input formControlName="floorLength" matInput type="number" [min]="0">
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Floor Width (meter)</mat-label>
+                <input formControlName="floorWidth" matInput type="number" [min]="0">
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <h2 class="category-title">Tile Details</h2>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Tile Length (meter)</mat-label>
+                <input formControlName="tileLength" matInput type="number" [min]="0">
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Tile Width (meter)</mat-label>
+                <input formControlName="tileWidth" matInput type="number" [min]="0">
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button" mat-raised-button>
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Wall Length</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.floorLength }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Wall Height</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.floorWidth }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Wall Thickness</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.tileLength }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Brick Length</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.tileWidth }} m</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result (Tiles)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ numberOfTiles }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result (Cement bags)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ cementBags }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result (sand qty)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ sandQuantity }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Floor Length</td>
+            <td>Floor Width</td>
+            <td>Tile Length</td>
+            <td>Tile Count</td>
+            <td>Number of Tiles</td>
+            <td>Cement Bags</td>
+            <td>Sand QTY</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.floorLength }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.floorWidth }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.tileLength }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.tileWidth }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.numberOfTiles }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.cementBags }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.sandQuantity }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator (page)="pageEvent = getServerData($event)"
+                   [length]=dataCount
+                   [pageIndex]=page
+                   [pageSizeOptions]=pageSizeOptions
+                   [pageSize]=pageSize
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

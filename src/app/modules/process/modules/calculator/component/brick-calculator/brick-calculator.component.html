@@ -1,0 +1,233 @@
+<div class="brick-calculator-outer">
+  <h1 class="main-title">Brick Calculator</h1>
+  <br>
+  <div class="new-form-outer">
+    <div class="new-form-inner">
+      <div class="input">
+        <h2 class="sub-title">Calculator</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="category-title">Wall Details</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Wall Length (meter)</mat-label>
+                <input formControlName="wallLength" matInput type="number" [min]="1">
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Wall Height (meter)</mat-label>
+                <input formControlName="wallHeight" matInput type="number" [min]="1">
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Wall Thickness (centimeter)</mat-label>
+                <input formControlName="wallThickness" matInput type="number" [min]="1">
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <h2 class="category-title">Brick Details</h2>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Brick Length</mat-label>
+                <input formControlName="brickLength" matInput type="number" [min]="1">
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Brick Width (meter)</mat-label>
+                <input formControlName="brickWidth" matInput type="number" [min]="1">
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Brick Height (meter)</mat-label>
+                <input formControlName="brickHeight" matInput type="number" [min]="1">
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <h2 class="category-title">Other Details</h2>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 column">
+              <mat-form-field appearance="outline" class="example-full-width input-size">
+                <mat-label>Cement Ratio (C:M)</mat-label>
+                <mat-select formControlName="cementRatio">
+                  <mat-option [value]="'1:3'">1:3</mat-option>
+                  <mat-option [value]="'1:4'">1:4</mat-option>
+                  <mat-option [value]="'1:5'">1:5</mat-option>
+                  <mat-option [value]="'1:6'">1:6</mat-option>
+                  <mat-option [value]="'1:7'">1:7</mat-option>
+                  <mat-option [value]="'1:8'">1:8</mat-option>
+                  <mat-option [value]="'1:9'">1:9</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 column">
+              <div class="submit-button-outer">
+                <button (click)="calculate(f)"
+                        class="submit-button" mat-raised-button>
+                  Calculate
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="output">
+        <div class="output-box">
+          <div class="key-value-list">
+            <div class="key-value-item">
+              <span class="key">Wall Length</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.wallLength }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Wall Height</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.wallHeight }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Wall Thickness</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.wallThickness }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Brick Length</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.brickLength }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Brick Width</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.brickWidth }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Brick Height</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.brickHeight }} m</span>
+            </div>
+            <div class="key-value-item">
+              <span class="key">Cement Ratio (C:M)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ form.value.cementRatio }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result (Bricks)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ numberOfBricks }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result (Cement bags)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ cementBags }}</span>
+            </div>
+            <div class="key-value-item result-row">
+              <span class="key">Result (sand qty)</span>
+              <span class="colon">:</span>
+              <span class="value">{{ sandQuantity }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="table-outer">
+    <h2 class="sub-title">History</h2>
+
+    <div class="list-outer">
+      <div class="table-outer">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Wall Length</td>
+            <td>Wall Height</td>
+            <td>Wall Thickness</td>
+            <td>Brick Length</td>
+            <td>Brick Width</td>
+            <td>Brick Height</td>
+            <td>Cement Ratio</td>
+            <td>Bricks</td>
+            <td>Cement Bags</td>
+            <td>Sand QTY</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let h of history">
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.wallLength }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.wallHeight }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.wallThickness }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.brickLength }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.brickWidth }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.brickHeight }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.cementRatio }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.numberOfBricks }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.cementBags }}
+              </div>
+            </td>
+            <td class="table-col">
+              <div class="td-inner">
+                {{ h?.sandQuantity }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mat-paginator (page)="pageEvent = getServerData($event)"
+                   [length]=dataCount
+                   [pageIndex]=page
+                   [pageSizeOptions]=pageSizeOptions
+                   [pageSize]=pageSize
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>
